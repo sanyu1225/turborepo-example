@@ -16,8 +16,17 @@ jobs:
 
       - name: Checkout Repo
         uses: actions/checkout@v4
+
       - name: Install Dependencies
         run: yarn
+
+      - name: Set Environment Variables
+        run: 'echo "field: ${{ github.event.client_payload.foo }}"'
+        # run:  echo "PACKAGE_VERSION=$(echo $PACKAGE_VERSION | jq -r '.[0].version')" >> $GITHUB_OUTPUT
+
+      # - name: Print version
+      #   if: steps.changesets.outputs.published == 'true'
+      #   run: echo "${{ steps.setVersion.outputs.PACKAGE_VERSION }} ......"
 
       - name: Update SDK verison
         run: yarn updateAll
