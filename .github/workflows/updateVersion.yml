@@ -19,19 +19,19 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Update Sdk verison
+      - name: Update SDK verison
         run: yarn updateAll
 
-      - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
         with:
-          commit_message: "ci: bump package version"
-          commit_options: "--no-verify"
-
-      - name: Create Release Pull Requests
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEV_GITHUB_TOKEN }}
-          MAIN_TITLE: "feat: update sdk version"
-          MAIN_BODY: "Please review and merge this Pull Request."
-        run: |
-          gh pr create --title "$MAIN_TITLE" --body "$MAIN_BODY" --base main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update SDK version
+          title: "feat: update SDK version"
+          body: Update SDK version
+          branch: update-sdk-version
+          base: main
+          labels: version
+          assignees: ${{ github.actor }}
+          reviewers: ${{ github.actor }}
+          draft: false
