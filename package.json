@@ -1,0 +1,19 @@
+{
+  "name": "turborepo-example",
+  "version": "1.0.0",
+  "description": "demo",
+  "type": "module",
+  "scripts": {
+    "updateAll": "node updatePackage.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanyu1225/turborepo-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanyu1225/turborepo-example/issues"
+  },
+  "homepage": "https://github.com/sanyu1225/turborepo-example#readme"
+}
