@@ -1,0 +1,37 @@
+name: Update version
+
+jobs:
+  release:
+    name: Create version PR from release branch
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Update Sdk verison
+        run: yarn updateAll
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "ci: bump package version"
+          commit_options: "--no-verify"
+
+      - name: Create Release Pull Requests
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEV_GITHUB_TOKEN }}
+          MAIN_TITLE: "feat: update sdk version"
+          MAIN_BODY: "Please review and merge this Pull Request."
+        run: |
+          gh pr create --title "$MAIN_TITLE" --body "$MAIN_BODY" --base main
