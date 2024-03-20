@@ -22,7 +22,7 @@ jobs:
 
       - name: Set Environment Variables
         id: setEnvironmentVariables
-        run: echo" $(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")" >> $GITHUB_OUTPUT
+        run: echo "$(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")" >> $GITHUB_OUTPUT
         # run:  echo "PACKAGE_VERSION=$(echo $PACKAGE_VERSION | jq -r '.[0].version')" >> $GITHUB_OUTPUT
 
       - name: Print version
