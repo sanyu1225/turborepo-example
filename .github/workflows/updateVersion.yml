@@ -21,7 +21,8 @@ jobs:
         run: yarn
 
       - name: Set Environment Variables
-        run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'
+        run: 'echo "version: $(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")"'
+
         # run:  echo "PACKAGE_VERSION=$(echo $PACKAGE_VERSION | jq -r '.[0].version')" >> $GITHUB_OUTPUT
 
       # - name: Print version
