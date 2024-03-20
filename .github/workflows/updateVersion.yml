@@ -21,9 +21,12 @@ jobs:
         run: yarn
 
       - name: Set Environment Variables
-        run: 'echo "version: $(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")"'
-
+        id: setEnvironmentVariables
+        run: echo" $(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")" >> $GITHUB_OUTPUT
         # run:  echo "PACKAGE_VERSION=$(echo $PACKAGE_VERSION | jq -r '.[0].version')" >> $GITHUB_OUTPUT
+
+      - name: Print version
+        run: echo "${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }} ......"
 
       # - name: Print version
       #   if: steps.changesets.outputs.published == 'true'
