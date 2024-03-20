@@ -20,9 +20,12 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Extract version with jq
+        run: echo ''
+
       - name: Set Environment Variables
         id: setEnvironmentVariables
-        run: echo "PACKAGE_VERSION=$(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")" >> $GITHUB_OUTPUT
+        run: echo "PACKAGE_VERSION=$(echo ${{ toJson(github.event.client_payload) }}' | jq -r '.version)" >> $GITHUB_OUTPUT
 
       - name: Print version
         run: echo "${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }} ......"
