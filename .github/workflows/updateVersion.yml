@@ -21,7 +21,7 @@ jobs:
         run: yarn
 
       - name: Set Environment Variables
-        run: 'echo "field: ${{ github.event.client_payload.foo }}"'
+        run: 'echo "payload: ${{ toJson(github.event.client_payload) }}"'
         # run:  echo "PACKAGE_VERSION=$(echo $PACKAGE_VERSION | jq -r '.[0].version')" >> $GITHUB_OUTPUT
 
       # - name: Print version
@@ -37,6 +37,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update SDK version
           title: "feat: update SDK version"
+          # TODO write a message
           body: Update SDK version
           branch: update-sdk-version
           base: main
