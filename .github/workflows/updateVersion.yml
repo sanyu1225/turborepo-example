@@ -20,6 +20,13 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
+      - name: Extract version with jq
+        run: echo '${{ toJson(github.event.client_payload) }}' | jq -r '.version'
+
+      - name: Write version to file
+        run: echo "version: ${{ toJson(github.event.client_payload) }}" > version.txt
+
+
       - name: Set Environment Variables
         id: setEnvironmentVariables
         run: echo "$(echo ${{ toJson(github.event.client_payload) }} | jq -r ".version")" >> $GITHUB_OUTPUT
