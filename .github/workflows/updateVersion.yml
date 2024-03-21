@@ -20,22 +20,15 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Extract version with jq
-        run: echo ''
-
       - name: Set Environment Variables
         id: setEnvironmentVariables
         run: echo "PACKAGE_VERSION=$(echo '${{ toJson(github.event.client_payload) }}' | jq -r '.version')" >> $GITHUB_OUTPUT
 
       - name: Print version
-        run: echo "${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }} ......"
-
-      # - name: Print version
-      #   if: steps.changesets.outputs.published == 'true'
-      #   run: echo "${{ steps.setVersion.outputs.PACKAGE_VERSION }} ......"
+        run: echo "${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }}"
 
       - name: Update SDK verison
-        run: yarn updateAll
+        run: yarn updateAll ${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -43,8 +36,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update SDK version
           title: "feat: update SDK version"
-          # TODO write a message
-          body: Update SDK version
+          body: SDK version [SDK](https:'https://github.com/blocto/blocto-sdk/releases/tag/@blocto/sdk@${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }}') version is released
           branch: update-sdk-version
           base: main
           labels: version

@@ -8,7 +8,10 @@ import { getDirectories, updatePackageJSON } from "./utils.js";
         .then((res) => res.json())
         .then(({ version }) => version);
     };
-    const version = await getNpmSdkVersion();
+    // process.argv[2] from shell script verison like `yarn updatAll x.x.x`
+    const version = process.argv[2]
+      ? process.argv[2]
+      : await getNpmSdkVersion();
     console.log("version: ", version);
     await updatePackageJSON("./demo", directories, version);
   } catch (error) {
