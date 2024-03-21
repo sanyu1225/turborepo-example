@@ -24,11 +24,11 @@ jobs:
         run: echo ''
 
       - name: Set Environment Variables
-        id: setEnvironmentVariables
-        run: echo "PACKAGE_VERSION=$(echo ${{ toJson(github.event.client_payload) }}' | jq -r '.version)" >> $GITHUB_OUTPUT
+        id: setVerion
+        run: echo "PACKAGE_VERSION=$(echo ${{ github.event.client_payload }}' | jq -r '.version)" >> $GITHUB_OUTPUT
 
       - name: Print version
-        run: echo "${{ steps.setEnvironmentVariables.outputs.PACKAGE_VERSION }} ......"
+        run: echo "${{ steps.setVerion.outputs.PACKAGE_VERSION }} ......"
 
       # - name: Print version
       #   if: steps.changesets.outputs.published == 'true'
