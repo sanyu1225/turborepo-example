@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "vue": "^3.4.15",
-    "@blocto/sdk": "^0.8.0"
+    "@blocto/sdk": "0.1.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
