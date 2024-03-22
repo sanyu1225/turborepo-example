@@ -10,7 +10,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@blocto/sdk": "^0.8.0"
+    "@blocto/sdk": "0.1.4"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
